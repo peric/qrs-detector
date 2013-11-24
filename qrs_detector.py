@@ -1,9 +1,5 @@
 '''
 @author: drazen
-
-references:
-* http://cinc.org/archives/2003/pdf/585.pdf
-* http://zerocool.is-a-geek.net/?p=62
 '''
 
 import random
@@ -27,7 +23,7 @@ class QrsDetector:
             signal_type = record.signal_names[0]
 
             # TODO: self.input_signal = record.read(signal_type, 0) to read all
-            self.input_signal = record.read(signal_type, 0)
+            self.input_signal = record.read(signal_type, 0, 20000)
             self.n_samples = len(self.input_signal)
 
     def high_pass_filter(self):
@@ -114,6 +110,7 @@ class QrsDetector:
 
             threshold = alpha * gama * max + (1 - alpha) * threshold
 
+    # TODO: finish this
     def write_results(self):
         f = open(self.record_file + '.asc', 'wt')
 
