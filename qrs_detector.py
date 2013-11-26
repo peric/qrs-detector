@@ -64,16 +64,17 @@ class QrsDetector:
 
             if i+30 < self.n_samples:
                 for j in range(i, i+30):
-                    current = self.input_signal[j]**2
+                    current = self.high_pass[j]**2
                     total += current
             elif i+30 >= self.n_samples:
                 over = i+30 - self.n_samples
 
                 for j in range(i, self.n_samples):
-                    current = self.input_signal[j]**2
+                    current = self.high_pass[j]**2
                     total += current
+
                 for j in range(0, over):
-                    current = self.input_signal[j]**2
+                    current = self.high_pass[j]**2
                     total += current
 
             self.low_pass[i] = total
@@ -83,7 +84,7 @@ class QrsDetector:
         threshold = 0
         frame = 250
 
-        for i in range(0, 50):  # TODO: change 50 -> 200
+        for i in range(0, 200):  # TODO: change 50 -> 200
             if self.low_pass[i] > threshold:
                 threshold = self.low_pass[i]
 
