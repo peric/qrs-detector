@@ -12,6 +12,7 @@ class QrsDetector:
         self.high_pass = []
         self.low_pass = []
         self.qrs = []
+        self.qrs_indexes = []
         self.n_samples = 0
         self.m = 5
         self.record_file = record_file
@@ -23,7 +24,7 @@ class QrsDetector:
             signal_type = record.signal_names[0]
 
             # TODO: self.input_signal = record.read(signal_type, 0) to read all
-            self.input_signal = record.read(signal_type, 0, 20000)
+            self.input_signal = record.read(signal_type, 0, 1000000)  # samples: 20594750
             self.n_samples = len(self.input_signal)
 
     def high_pass_filter(self):
@@ -82,7 +83,7 @@ class QrsDetector:
         threshold = 0
         frame = 250
 
-        for i in range(0, 200):
+        for i in range(0, 50):  # TODO: change 50 -> 200
             if self.low_pass[i] > threshold:
                 threshold = self.low_pass[i]
 
@@ -110,11 +111,15 @@ class QrsDetector:
 
             threshold = alpha * gama * max + (1 - alpha) * threshold
 
-    # TODO: finish this
-    def write_results(self):
-        f = open(self.record_file + '.asc', 'wt')
-
+    def set_qrs_indexes(self):
         for i in range(0, self.n_samples):
-            f.write('0:00:00.00 %d N 0 0 0\n' % self.qrs[i])
+            if self.qrs[i] == 1:
+                self.qrs_indexes.append(i)
+
+    def write_results(self):
+        f = open(self.record_file + '.det', 'w')
+
+        for i in range(0, len(self.qrs_indexes)):
+            f.write('0:00:00.00 %s N 0 0 0\n' % self.qrs_indexes[i])
 
         f.close()
