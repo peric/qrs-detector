@@ -16,21 +16,21 @@ qrs_detector.set_qrs_indexes()
 qrs_detector.write_results()
 
 # plot values
-plt.figure(1)
-plt.subplot(221)
-plt.plot(qrs_detector.input_signal)
-plt.xlabel('input signal')
-
-plt.subplot(222)
-plt.plot(qrs_detector.high_pass)
-plt.xlabel('high pass')
-
-plt.subplot(223)
-plt.plot(qrs_detector.low_pass)
-plt.xlabel('low pass')
-
-plt.subplot(224)
-plt.plot(qrs_detector.qrs)
-plt.xlabel('qrs')
+#plt.figure(1)
+#plt.subplot(221)
+#plt.plot(qrs_detector.input_signal)
+#plt.xlabel('input signal')
+#
+#plt.subplot(222)
+#plt.plot(qrs_detector.high_pass)
+#plt.xlabel('high pass')
+#
+#plt.subplot(223)
+#plt.plot(qrs_detector.low_pass)
+#plt.xlabel('low pass')
+#
+#plt.subplot(224)
+#plt.plot(qrs_detector.qrs)
+#plt.xlabel('qrs')
 
 plt.show()

@@ -23,8 +23,7 @@ class QrsDetector:
         if len(record.signal_names) > 0:
             signal_type = record.signal_names[0]
 
-            # TODO: self.input_signal = record.read(signal_type, 0) to read all
-            self.input_signal = record.read(signal_type, 0, 1000000)  # samples: 20594750
+            self.input_signal = record.read(signal_type, 0)
             self.n_samples = len(self.input_signal)
 
     def high_pass_filter(self):
@@ -84,7 +83,7 @@ class QrsDetector:
         threshold = 0
         frame = 250
 
-        for i in range(0, 200):  # TODO: change 50 -> 200
+        for i in range(0, 200):
             if self.low_pass[i] > threshold:
                 threshold = self.low_pass[i]
 
