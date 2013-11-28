@@ -102,6 +102,7 @@ class QrsDetector:
             for j in range(i, index):
                 if (self.low_pass[j] > threshold) and not added:
                     self.qrs[j] = 1
+                    self.qrs_indexes.append(j)
                     added = True
                 else:
                     self.qrs[j] = 0
@@ -110,11 +111,6 @@ class QrsDetector:
             alpha = 0.01 + (random.random() * (0.1 - 0.01))
 
             threshold = alpha * gama * max + (1 - alpha) * threshold
-
-    def set_qrs_indexes(self):
-        for i in range(0, self.n_samples):
-            if self.qrs[i] == 1:
-                self.qrs_indexes.append(i)
 
     def write_results(self):
         f = open(self.record_file + '.det', 'w')

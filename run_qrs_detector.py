@@ -12,7 +12,6 @@ qrs_detector.read_file()
 qrs_detector.high_pass_filter()
 qrs_detector.low_pass_filter()
 qrs_detector.qrs_detect()
-qrs_detector.set_qrs_indexes()
 qrs_detector.write_results()
 
 # plot values
