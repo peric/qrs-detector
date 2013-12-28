@@ -80,8 +80,12 @@ class QrsDetector:
 
     def qrs_detect(self):
         self.qrs = [None]*self.n_samples
+
         threshold = 0
         frame = 250
+
+        gama = 0.15 if random.random() > 0.5 else 0.20
+        alpha = 0.01 + (random.random() * (0.1 - 0.01))
 
         for i in range(0, 200):
             if self.low_pass[i] > threshold:
@@ -106,9 +110,6 @@ class QrsDetector:
                     added = True
                 else:
                     self.qrs[j] = 0
-
-            gama = 0.15 if random.random() > 0.5 else 0.20
-            alpha = 0.01 + (random.random() * (0.1 - 0.01))
 
             threshold = alpha * gama * max + (1 - alpha) * threshold
 
