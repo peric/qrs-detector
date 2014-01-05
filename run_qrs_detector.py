@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import sys
 
 record_file = "files/s20011"
-if 1 in sys.argv:
+if sys.argv[1]:
     record_file = sys.argv[1]
 
 qrs_detector = QrsDetector(record_file)
